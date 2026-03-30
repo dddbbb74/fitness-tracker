@@ -295,3 +295,9 @@ function adjustStepper(inputId, delta) {
     if (input.max) val = Math.min(parseInt(input.max), val);
     input.value = val;
 }
+
+async function deleteWorkout(id) {
+    if (!confirm('Are you sure you want to delete this workout?')) return;
+    await dbDelete('workouts', id);
+    await renderWorkoutList();
+}
