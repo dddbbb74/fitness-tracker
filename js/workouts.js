@@ -35,7 +35,7 @@ async function renderWorkoutList() {
     listEl.classList.remove('hidden');
 
     listEl.innerHTML = workouts.map(w => {
-        const totalExercises = w.exercises ? w.exercises.length : 0;
+       const totalExercises = w.exercises ? w.exercises.length : 0;
         const totalSets = w.exercises ? w.exercises.reduce((sum, e) => sum + (e.sets ? e.sets.length : 0), 0) : 0;
         const totalVolume = w.exercises ? w.exercises.reduce((sum, e) =>
             sum + (e.sets ? e.sets.reduce((s, set) => s + (set.weight * set.reps), 0) : 0), 0) : 0;
@@ -44,7 +44,18 @@ async function renderWorkoutList() {
             <div class="card" onclick="openWorkoutDetail('${w.id}')">
                 <div class="card-header">
                     <span class="card-title">${w.name}</span>
-                    <span class="card-date">${formatDate(w.date)}</span>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="card-date">${formatDate(w.date)}</span>
+                        <button onclick="event.stopPropagation(); deleteWorkout('${w.id}')" 
+                            style="background: rgba(239,68,68,0.15); 
+                                   border: 1px solid #ef4444; 
+                                   color: #ef4444; 
+                                   border-radius: 8px; 
+                                   padding: 4px 10px; 
+                                   font-size: 13px; 
+                                   font-weight: 600; 
+                                   cursor: pointer;">✕</button>
+                    </div>
                 </div>
                 <div class="card-meta">
                     <span>🏋️ ${totalExercises} exercises</span>
